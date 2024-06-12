@@ -1,12 +1,15 @@
 window.onload = () => {
 
-// Create Iframe
+    fetch("https://cdn.jsdelivr.net/gh/rgalaWolken/autodesk-poc/wolken-iframe.html")
+    .then(response => response.text())
+    .then(html => {
+        // Create Iframe
 const iframe = document.createElement('iframe');
 iframe.classList.add('wolken-iframe');
 
 // iframe.srcdoc = srcDoc;
 // iframe.src="http://localhost:5509/2.html";
-iframe.srcdoc="https://cdn.jsdelivr.net/gh/rgalaWolken/autodesk-poc/wolken-iframe.html"
+iframe.srcdoc=html;
 iframe.style.width = '100%';
 iframe.style.height = 'calc(100vh - 110px)';
 iframe.style.border = 'none';  
@@ -18,6 +21,9 @@ mainDiv.appendChild(iframe);
 
 const wolkenContainer = document.getElementsByTagName('my-wolken-tag');
 wolkenContainer[0].appendChild(mainDiv);
+
+    });
+
 
 
 }
