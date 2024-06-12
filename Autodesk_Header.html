@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoDesk Header</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rgalaWolken/autodesk-poc/autodesk.js"></script>
+    <style>
+
+      body {
+        padding-top: 0 !important;
+        margin: 0;
+
+    }
+
+    .wolken-autodesk-header {
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      font-family: 'Artifakt', sans-serif;
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      color: currentColor;
+    }
+
+    .wolken-autodesk-header--logo {
+      margin-top: 15px;
+      height: 25px;
+      background-size: contain !important;
+      min-width: 20% !important;
+      margin-left: 6rem;
+      background: url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB3aWR0aD0iMTc5IiBoZWlnaHQ9IjI4IiB2aWV3Qm94PSIwIDAgMTc5IDI4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNDEuMzQgMjFINDMuMUwzOC40MiA3SDM2LjA4TDMxLjU4IDIxSDMzLjNMMzQuNiAxNi44MkgzOS45Nkw0MS4zNCAyMVpNMzcuMjQgOC4yNEwzOS41IDE1LjM4SDM1LjA0TDM3LjI0IDguMjRaTTU1LjY2MDUgN0g1My45NDA1VjE2LjVDNTMuOTQwNSAxOC40NCA1Mi45ODA1IDE5Ljg2IDUwLjUyMDUgMTkuODZDNDguMDYwNSAxOS44NiA0Ny4xMDA1IDE4LjQ0IDQ3LjEwMDUgMTYuNVY3SDQ1LjM4MDVWMTYuNDhDNDUuMzgwNSAxOS4xNCA0Ni45ODA1IDIxLjI0IDUwLjUyMDUgMjEuMjRDNTQuMDYwNSAyMS4yNCA1NS42NjA1IDE5LjE0IDU1LjY2MDUgMTYuNDhWN1pNNjcuOTQyIDdINTguMDAyVjguMzhINjIuMTIyVjIxSDYzLjg0MlY4LjM4SDY3Ljk0MlY3Wk03NS4yNDc1IDYuNzZDNzEuNDg3NSA2Ljc2IDY5LjcyNzUgOS4yIDY5LjcyNzUgMTIuNDhWMTUuNThDNjkuNzI3NSAxOC43NCA3MS40Njc1IDIxLjI0IDc1LjI0NzUgMjEuMjRDNzkuMDA3NSAyMS4yNCA4MC43NDc1IDE4Ljc0IDgwLjc0NzUgMTUuNThWMTIuNDhDODAuNzQ3NSA5LjI0IDc5LjAyNzUgNi43NiA3NS4yNDc1IDYuNzZaTTc1LjI0NzUgOC4xNEM3Ny45MDc1IDguMTQgNzkuMDQ3NSA5Ljk2IDc5LjA0NzUgMTIuNDZWMTUuNjJDNzkuMDQ3NSAxOC4wMiA3Ny44ODc1IDE5Ljg2IDc1LjI0NzUgMTkuODZDNzIuNTY3NSAxOS44NiA3MS40NDc1IDE4LjAyIDcxLjQ0NzUgMTUuNjJWMTIuNDZDNzEuNDQ3NSA5Ljk0IDcyLjYwNzUgOC4xNCA3NS4yNDc1IDguMTRaTTg4Ljc4OTEgN0g4Ni4zODkxSDg0LjY4OTFWMjFIODUuNzI5MUg4OC4yODkxQzkyLjI4OTEgMjEgOTQuNDQ5MSAxOC43IDk0LjQ0OTEgMTUuMDRWMTIuNkM5NC40NDkxIDkuMjQgOTIuNTQ5MSA3IDg4Ljc4OTEgN1pNOTIuNzI5MSAxNS4wOEM5Mi43MjkxIDE4LjA4IDkxLjIyOTEgMTkuNjIgODguMjg5MSAxOS42Mkg4Ni4zODkxVjguMzhIODguNzA5MUM5MS4zODkxIDguMzggOTIuNzI5MSA5Ljk4IDkyLjcyOTEgMTIuNTZWMTUuMDhaTTEwNi4wOCA4LjM4VjdIMTAwLjA4SDk4LjM4MDVWMjFIOTguNDAwNUgxMDYuMDhWMTkuNjJIMTAwLjA4VjE0LjUySDEwNS42NFYxMy4xNEgxMDAuMDhWOC4zOEgxMDYuMDhaTTExMy40MDEgMjEuMjRDMTE2LjU4MSAyMS4yNCAxMTguNTAxIDE5LjU2IDExOC41MDEgMTcuNDZWMTYuOTZDMTE4LjUwMSAxNC44NCAxMTcuMDIxIDEzLjkyIDExNS4wNjEgMTMuM0wxMTMuMjQxIDEyLjdDMTExLjQ2MSAxMi4xNCAxMTAuNzIxIDExLjQ2IDExMC43MjEgMTAuNThWMTAuMThDMTEwLjcyMSA5LjI2IDExMS41ODEgOC4xNCAxMTMuNzgxIDguMTRDMTE1LjMyMSA4LjE0IDExNi4zNDEgOC41NiAxMTcuNTIxIDkuNTZMMTE4LjQ0MSA4LjU4QzExNy4yNDEgNy40MiAxMTUuNzQxIDYuNzYgMTEzLjc2MSA2Ljc2QzExMC42MjEgNi43NiAxMDkuMDAxIDguNSAxMDkuMDAxIDEwLjE4VjEwLjYyQzEwOS4wMDEgMTIuMTIgMTA5LjkwMSAxMy4yNiAxMTIuMjYxIDE0LjA0TDExNC4yODEgMTQuN0MxMTYuMTAxIDE1LjMgMTE2Ljc4MSAxNS44NiAxMTYuNzgxIDE3LjEyVjE3LjQ0QzExNi43ODEgMTguNTIgMTE1LjgwMSAxOS44IDExMy4zODEgMTkuOEMxMTEuMzIxIDE5LjggMTEwLjQ2MSAxOS4xOCAxMDkuMzgxIDE4LjM4TDEwOC40NjEgMTkuNDZDMTA5LjUwMSAyMC40NiAxMTAuOTgxIDIxLjI0IDExMy40MDEgMjEuMjRaTTEzMC40NjggMjFIMTMyLjQyOEwxMjYuNjY4IDEzLjNMMTMxLjYwOCA3SDEyOS43NjhMMTIzLjg2OCAxNC40MlY3SDEyMi4yMjhWMjFIMTIzLjg2OFYxNi43MkwxMjUuNjA4IDE0LjVMMTMwLjQ2OCAyMVpNMTQ1LjExMiA2LjY4QzE0MS4xOTIgNi42OCAxMzkuMDcyIDkgMTM5LjA3MiAxMi40VjE1LjYyQzEzOS4wNzIgMTkgMTQxLjIxMiAyMS4zMiAxNDUuMTEyIDIxLjMyQzE0OS4wOTIgMjEuMzIgMTUxLjE3MiAxOSAxNTEuMTcyIDE1LjYyVjEyLjRDMTUxLjE3MiA5IDE0OS4wOTIgNi42OCAxNDUuMTEyIDYuNjhaTTE0NS4xMTIgOS4xOEMxNDYuNzkyIDkuMTggMTQ3LjY1MiAxMC4yOCAxNDcuNjUyIDEyLjM4VjE1LjZDMTQ3LjY1MiAxNy43MiAxNDYuNzkyIDE4LjgyIDE0NS4xMTIgMTguODJDMTQzLjQzMiAxOC44MiAxNDIuNTcyIDE3LjcyIDE0Mi41NzIgMTUuNlYxMi4zOEMxNDIuNTcyIDEwLjI4IDE0My40MzIgOS4xOCAxNDUuMTEyIDkuMThaTTE2Mi4zMSA3VjE1LjY4TDE1OC4wNyA3SDE1My45N1YyMUgxNTYuOTVWMTEuMzRMMTYxLjUxIDIxSDE2NS4yOVY3SDE2Mi4zMVpNMTc3LjQzNiA5LjUyVjdIMTcyLjIxNkgxNjguNzE2VjIxSDE2OS40NzZIMTc3LjQzNlYxOC40MkgxNzIuMjE2VjE1LjE2SDE3Ny4wMTZWMTIuNjZIMTcyLjIxNlY5LjUySDE3Ny40MzZaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMC4xMTgxODcgMjFMMTMuNTg5NiAxMy4yMDNIMjAuNTc3OUMyMC42MzE2IDEzLjIwMyAyMC42ODQ3IDEzLjIxMjggMjAuNzM0MyAxMy4yMzE5QzIwLjc4MzggMTMuMjUxMSAyMC44Mjg4IDEzLjI3OTEgMjAuODY2NyAxMy4zMTQ0QzIwLjkwNDYgMTMuMzQ5OCAyMC45MzQ3IDEzLjM5MTcgMjAuOTU1MSAxMy40Mzc5QzIwLjk3NTUgMTMuNDg0IDIwLjk4NiAxMy41MzM1IDIwLjk4NTkgMTMuNTgzNEMyMC45OTE0IDEzLjY0ODIgMjAuOTc2MyAxMy43MTMgMjAuOTQyNCAxMy43Njk4QzIwLjkwODUgMTMuODI2NiAyMC44NTczIDEzLjg3MjggMjAuNzk1MyAxMy45MDI3TDE0LjE3ODcgMTcuNTkzN0MxMy43NDg4IDE3LjgzMzEgMTMuNTk4MiAxOC4zMTM4IDEzLjU5ODIgMTguNjczOEwxMy41OTE1IDIxSDIyVjcuNDgxMUMyMi4wMDAyIDcuNDE2MjYgMjEuOTg2MyA3LjM1MjA3IDIxLjk1OSA3LjI5MjM4QzIxLjkzMTggNy4yMzI3IDIxLjg5MTkgNy4xNzg3NyAyMS44NDE3IDcuMTMzODRDMjEuNzkxNCA3LjA4ODkyIDIxLjczMTkgNy4wNTM5NCAyMS42NjY3IDcuMDMxMDFDMjEuNjAxNSA3LjAwODA4IDIxLjUzMjEgNi45OTc2OCAyMS40NjI0IDcuMDAwNDNIMTMuNDM5TDAgMTQuNzYzOFYyMUgwLjExODE4N1oiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=') no-repeat !important;
+
+    }
+
+    .wolken-autodesk-header__nav {
+      margin-left: 6rem;
+    }
+
+    .wolken-autodesk-header__nav>ul {
+      display: flex;
+      list-style-type: none;
+      justify-content: flex-start;
+      color: white;
+      gap: 2rem;
+      padding-left: 0;
+    }
+
+    .wolken-autodesk-header__nav>ul>li {
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 400 !important;
+      cursor: pointer;
+    }
+
+
+    .wolken-autodesk-header--arrow {
+      display: inline-block;
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: transparent;
+      text-indent: -9999px;
+      border-top: 1px solid #fff;
+      font-family: artifaktElementMediumHH;
+      border-left: 1px solid #fff;
+      text-decoration: none;
+      color: transparent;
+      cursor: pointer;
+      margin: 8px 6px;
+      -webkit-transform: rotate(-135deg);
+      transform: rotate(-135deg)
+    }
+
+    /* Overlay styles */
+
+    .wolken-autodesk-header__overlay {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      /* Enable scroll if needed */
+      z-index: 1000;
+    }
+
+    .wolken-autodesk-header__overlay-content {
+      width: 80%;
+      background: white;
+      border: 1px solid #eeee;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      margin: auto;
+    }
+
+
+    .wolken-autodesk-header__overlay-content__column {
+      flex: 1;
+      height: 100%;
+      color: black;
+    }
+
+    .wolken-autodesk-header__overlay-content__column--items {
+      list-style: none;
+      line-height: 3rem;
+      height: 100% !important;
+      padding: 0;
+      margin: 0;
+    }
+
+    .wolken-autodesk-header__overlay-content__column--items>li {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      position: relative;
+      cursor: pointer;
+      padding-left: 1.2rem;
+    }
+
+    .wolken-autodesk-header__overlay-content__column--items>li.wolken-autodesk-list-item-selected {
+      color: #2d2edf;
+      background-color: #ffffff;
+    }
+
+    .wolken-autodesk-header__overlay-content__column--items>li:hover {
+      background-color: #ffffff;
+    }
+
+    #columnThreeItems a:hover {
+      text-decoration: underline;
+    }
+
+    .rightarrow {
+      top: 50%;
+      right: 1rem;
+      border: solid currentColor;
+      border-width: 0 2px 2px 0;
+      position: absolute;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(-45deg);
+    }
+
+    .wolken-autodesk-header__overlay-content--closeButton {
+      position: absolute;
+      right: 1rem;
+      top: 0%;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .wolken-autodesk-header__overlay-content--closeButton:after {
+      display: inline-block;
+      content: "\00d7";
+      /* This will render the 'X' */
+    }
+
+
+
+
+
+    /* Responsive Design: Make the menu vertical on small screens */
+    @media (max-width: 600px) {
+        .menu {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .menu a {
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+
+    </style>
+    <script type="text/javascript" defer>
+
+      document.addEventListener("DOMContentLoaded", () =>{
+
+        const servicesButton = document.getElementById('servicesButton');
+        const overlay = document.getElementById('dropdownOverlay');
+        const closeBtn = document.getElementById('closeBtn');
+
+        const columnOneItems = document.getElementById('columnOneItems');
+        const columnTwoItems = document.getElementById('columnTwoItems');
+        const columnThreeItems = document.getElementById('columnThreeItems');
+
+      // Sample data for the submenu
+        const submenuItems = [
+		       {
+            title: ' Articles',
+            subLinks: [
+                  {
+                    title: 'Asset Management',
+                    link: 'wolken-support/kbsearch'
+                  },
+                  {
+                    title: 'Audio Conferencing ',
+                    link: 'wolken-support/kbsearch'
+                  },
+                  {
+                    title: 'Asset Management',
+                    link: 'wolken-support/kbsearch'
+                  },
+                  {
+                    title: 'Change Management',
+                    link: 'wolken-support/kbsearch'
+                  },
+                  {
+                    title: 'Configuration Management',
+                    link: 'wolken-support/kbsearch'
+                  },
+                  {
+                    title: 'Data Center Operations',
+                    link: 'wolken-support/kbsearch'
+                  },
+            ],
+          },
+          {
+            title: 'Business Services',
+            subLinks: [
+
+                  {
+                    title: 'Enterprise App Hub',
+                    link: 'wolken-support/request_creation?requesTypeId=4&categoryId=1'
+                  },
+                  {
+                    title: 'Captcha Alerts',
+                    link: 'request_creation?requesTypeId=4&categoryId=1'
+                  },
+                  {
+                    title: 'ScreenMeet',
+                    link: 'wolken-support/request_creation?requesTypeId=4&categoryId=1'
+                  },
+                  {
+                    title: 'Desktop Applications',
+                    link: 'wolken-support/request_creation?requesTypeId=4&categoryId=1'
+                  },
+                  {
+                    title: 'BigData - Other',
+                    link: 'wolken-support/request_creation?requesTypeId=4&categoryId=1'
+                  },
+            ]
+
+          },
+            { title: 'Employee Services', subLinks: [
+
+                  {
+                    title: 'Application Access Request ',
+                    link: 'wolken-support/item_details?itemId=2'
+                  },
+                  {
+                    title: 'Software Purchase Request',
+                    link: 'wolken-support/item_details?itemId=4'
+                  },
+                  {
+                    title: 'Business Objects Account Request',
+                    link: 'wolken-support/item_details?itemId=3'
+                  },
+                  {
+                    title: 'Pelican Service Onboarding ',
+                    link: 'wolken-support/item_details?itemId=8'
+                  },
+                  {
+                    title: 'Generic Service Request (I need...) ' ,
+                    link: 'wolken-support/item_details?itemId=6'
+                  },
+            ]},
+			 {
+            title: 'HR Portal',
+            link: "https://autodeskpoc-hr-enduser.wolkenservicedesk.com/wolken-support/item_details?itemId=7"
+			}
+   
+        ];
+
+      // Function to populate the submenu dynamically
+      function populateColumnOneItems(data) {
+        columnOneItems.innerHTML = ''; // Clear existing content
+        data.forEach(item => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          const span = document.createElement('span');
+          const div = document.createElement('div');
+          div.classList.add('rightarrow');
+          span.appendChild(div);
+          a.textContent = item.title;
+          if(item.link){
+            a.href = item.link;
+            a.target="_blank";
+            li.appendChild(a);
+          }else{
+            li.appendChild(a);
+            li.appendChild(span);
+            li.addEventListener('click', () => {
+            var checkChildStatus = document.querySelector('#columnOneItems > .wolken-autodesk-list-item-selected');
+            if (checkChildStatus) {
+                checkChildStatus.classList.remove('wolken-autodesk-list-item-selected');
+            }
+            li.classList.add('wolken-autodesk-list-item-selected');
+            populateColumnThreeItems(item.subLinks);
+
+          });
+          }
+
+         
+         
+          columnOneItems.appendChild(li);
+        });
+         document.querySelector('#columnOneItems > li:first-child').classList.add('wolken-autodesk-list-item-selected');
+        populateColumnThreeItems(data[0].subLinks);
+      }
+
+      function populateColumnTwoItems(data) {
+        columnTwoItems.innerHTML = ''; // Clear existing content
+        columnThreeItems.innerHTML = ''
+        data.forEach(item => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          const span = document.createElement('span');
+          const div = document.createElement('div');
+          div.classList.add('rightarrow');
+          span.appendChild(div);
+          a.textContent = item.title;
+          li.appendChild(a);
+          li.appendChild(span);
+          li.addEventListener('click', () => {
+            var checkChildStatus = document.querySelector('#columnTwoItems > .wolken-autodesk-list-item-selected');
+            if (checkChildStatus) {
+                checkChildStatus.classList.remove('wolken-autodesk-list-item-selected');
+            }
+            li.classList.add('wolken-autodesk-list-item-selected');
+            populateColumnThreeItems(item.subLinks);
+
+          });
+          columnTwoItems.appendChild(li);
+        });
+
+      }
+
+
+      function populateColumnThreeItems(data) {
+        columnThreeItems.innerHTML = ''; // Clear existing content
+        data.forEach(item => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          var hostURL = (window.location != window.parent.location)
+            ? document.referrer
+            : document.location.origin;
+          a.textContent = item.title;
+          a.href = "https://autodeskpoc-enduser.wolkenservicedesk.com/" + item.link;
+          a.target="_top";
+          li.appendChild(a);
+          li.addEventListener('click', () => {
+            var checkChildStatus = document.querySelector('#columnThreeItems > .wolken-autodesk-list-item-selected');
+            if (checkChildStatus) {
+                checkChildStatus.classList.remove('wolken-autodesk-list-item-selected');
+            }
+            li.classList.add('wolken-autodesk-list-item-selected');
+
+          });
+          columnThreeItems.appendChild(li);
+        });
+
+      }
+
+        servicesButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            overlay.style.display = 'block';
+            populateColumnOneItems(submenuItems); //
+            window.parent.postMessage({isDropdownOpen:true}, '*');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            window.parent.postMessage({isDropdownOpen:false}, '*');
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                overlay.style.display = 'none';
+                window.parent.postMessage({isDropdownOpen:false}, '*');
+            }
+        });
+      });
+
+    </script>
+  </head>
+  <body>
+    <div class="wolken-autodesk-header">
+      <div class="wolken-autodesk-header--logo"></div>
+      <div style="height: 1px; width: 100%; background-color: #cccc; margin-top: 15px;"></div>
+      <nav class="wolken-autodesk-header__nav">
+        <ul>
+          <li>
+            <a>Our Company<div class="wolken-autodesk-header--arrow"></div></a>
+          </li>
+          <li>
+            <a>News & Events<div class="wolken-autodesk-header--arrow"></div></a>
+          </li>
+          <li>
+            <a> Community & Culture<div class="wolken-autodesk-header--arrow"></div></a>
+          </li>
+          <li>
+            <a> Workplace<div class="wolken-autodesk-header--arrow"></div></a>
+          </li>
+          <li>
+            <a id="servicesButton"> Services<div class="wolken-autodesk-header--arrow"></div></a>
+          </li>
+          <li>
+            <a> Employee Resources<div class="wolken-autodesk-header--arrow"></div></a>
+          </li>
+        </ul>
+    </nav>
+        <div id="dropdownOverlay" class="wolken-autodesk-header__overlay">
+        <div class="wolken-autodesk-header__overlay-content">
+
+
+          <div class="wolken-autodesk-header__overlay-content__column" style="background-color: #f8fafb;">
+            <ul class="wolken-autodesk-header__overlay-content__column--items"  id="columnOneItems">
+            </ul>
+          </div>
+          <!-- <div class="wolken-autodesk-header__overlay-content__column">
+            <ul class="wolken-autodesk-header__overlay-content__column--items"  id="columnTwoItems">
+            </ul>
+          </div> -->
+          <div class="wolken-autodesk-header__overlay-content__column">
+            <ul class="wolken-autodesk-header__overlay-content__column--items"  id="columnThreeItems">
+            </ul>
+          </div>
+          <div class="wolken-autodesk-header__overlay-content--closeButton" id="closeBtn"></div>
+        </div>
+      </div>
+    </div>
+
+    <button>NEW BUTTOn</button>
+    <my-wolken-tag></my-wolken-tag>
+  </body>
+</html>
+
+
