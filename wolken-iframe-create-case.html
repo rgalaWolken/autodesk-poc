@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style type="text/css">
+    .mat-autocomplete-panel.mat-autocomplete-visible {
+        visibility: visible;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+        background: white;
+    }
+
+    .file-drop-area {
+        border: 2px dashed rgba(0, 0, 0, 0.3);
+        padding: 8px 12px;
+    }
+
+    .mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker {
+        color: #f44336;
+    }
+
+    .mat-option:hover:not(.mat-option-disabled),
+    .wolken-light-theme .mat-option:focus:not(.mat-option-disabled) {
+        background: rgba(0, 0, 0, 0.04);
+    }
+
+    .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+        color: #f44336;
+    }
+
+    .mat-raised-button:hover {
+        background: var(--theme-primary-900);
+        color: var(--theme-primary-contrast-900) !important;
+    }
+
+    .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+        color: rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: rgba(0, 0, 0, 0.12);
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+        color: rgba(0, 0, 0, 0.87);
+    }
+
+    .mat-form-field-label {
+        color: rgba(0, 0, 0, 0.6);
+    }
+    .createcase-lable {
+        font-weight: 500;
+    font-size: 18px;
+    padding-top: 14px;
+    }
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://rgalawolken.github.io/autodesk-poc/create-case-widget.js"></script>
+     <link rel="stylesheet" href="https://rgalawolken.github.io/autodesk-poc/create-case-styles.css">
+     <link id="appFamilyFonts" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+</head>
+<body style="display: flex;flex-direction: column;text-align: center;">
+<span class="createcase-lable">Case Creation</span>
+<create-case-widget></create-case-widget>
+    
+</body>
+</html>
